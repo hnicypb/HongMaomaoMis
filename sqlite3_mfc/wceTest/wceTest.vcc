@@ -1,0 +1,42 @@
+; CLW file contains information for the MFC ClassWizard
+
+[General Info]
+Version=1
+LastClass=CTestDlg
+LastTemplate=CDialog
+NewFileInclude1=#include "stdafx.h"
+NewFileInclude2=#include "wceTest.h"
+
+ClassCount=2
+Class1=CTestApp
+Class2=CTestDlg
+
+ResourceCount=3
+Resource2=IDR_MAINFRAME
+Resource3=IDD_WCETEST_DIALOG
+
+[CLS:CTestApp]
+Type=0
+HeaderFile=wceTest.h
+ImplementationFile=wceTest.cpp
+Filter=N
+
+[CLS:CTestDlg]
+Type=0
+HeaderFile=TestDlg.h
+ImplementationFile=TestDlg.cpp
+Filter=D
+BaseClass=CDialog
+VirtualFilter=dWC
+LastObject=IDC_PB_REVIEW
+
+
+[DLG:IDD_WCETEST_DIALOG]
+Type=1
+Class=CTestDlg
+ControlCount=4
+Control1=IDC_EDIT1,edit,1350631552
+Control2=IDC_LIST1,SysListView32,1350631433
+Control3=IDC_PB_CREATE,button,1342242816
+Control4=IDC_PB_REVIEW,button,1342242816
+
