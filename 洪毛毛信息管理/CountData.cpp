@@ -107,10 +107,10 @@ void CCountData::OnBnClickedOk()
 			else
 				m_mapOffice[it->strOffice]++;
 
-			if (m_mapOffice2.find(it->strOffice) == m_mapOffice2.end())
+			if (m_mapOffice2.find(it->strOffice2) == m_mapOffice2.end())
 				m_mapOffice2.insert(pair<CString,DWORD>(it->strOffice2,1));
 			else
-				m_mapOffice2[it->strOffice]++;
+				m_mapOffice2[it->strOffice2]++;
 		}
 	}
 
