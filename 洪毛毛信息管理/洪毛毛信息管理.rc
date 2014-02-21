@@ -54,8 +54,8 @@ BEGIN
     "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
     "LANGUAGE 4, 2\r\n"
     "#pragma code_page(936)\r\n"
-    "#include ""res\\My.rc2""  // 非 Microsoft Visual C++ 编辑的资源\r\n"
-    "#include ""l.CHS\\afxres.rc""      // 标准组件\r\n"
+    "#include ""res\\My.rc2""  // ·? Microsoft Visual C++ ±à?-μ?×ê?′\r\n"
+    "#include ""l.CHS\\afxres.rc""      // ±ê×?×é?t\r\n"
     "#endif\r\n"
     "\0"
 END
@@ -88,17 +88,17 @@ BEGIN
     DEFPUSHBUTTON   "确定",IDOK,113,41,50,14,WS_GROUP
 END
 
-IDD_MY_DIALOG DIALOGEX 0, 0, 320, 198
+IDD_MY_DIALOG DIALOGEX 0, 0, 318, 193
 STYLE DS_SETFONT | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_VISIBLE | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
 EXSTYLE WS_EX_APPWINDOW
 CAPTION "洪毛毛信息管理"
 FONT 14, "Microsoft Sans Serif", 400, 0, 0x0
 BEGIN
-    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,3,3,314,169
-    DEFPUSHBUTTON   "添加",IDOK,3,174,59,21
-    PUSHBUTTON      "退出",IDCANCEL,258,174,59,21
-    DEFPUSHBUTTON   "统计",ID_COUNT,125,174,59,21
-    DEFPUSHBUTTON   "删除",ID_DEL,64,174,59,21
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,1,1,316,169
+    DEFPUSHBUTTON   "添加",IDOK,1,171,59,21
+    PUSHBUTTON      "退出",IDCANCEL,258,171,59,21
+    DEFPUSHBUTTON   "统计",ID_COUNT,123,171,59,21
+    DEFPUSHBUTTON   "删除",ID_DEL,62,171,59,21
 END
 
 IDD_DIALOG_EDIT DIALOGEX 0, 0, 176, 160
@@ -195,10 +195,10 @@ BEGIN
 
     IDD_MY_DIALOG, DIALOG
     BEGIN
-        LEFTMARGIN, 3
+        LEFTMARGIN, 1
         RIGHTMARGIN, 317
-        TOPMARGIN, 3
-        BOTTOMMARGIN, 195
+        TOPMARGIN, 1
+        BOTTOMMARGIN, 192
     END
 
     IDD_DIALOG_EDIT, DIALOG

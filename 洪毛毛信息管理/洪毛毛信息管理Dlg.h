@@ -70,6 +70,7 @@ private:
 
 	CPoint m_pointOld;
 	CRect  m_rect;   //用于保存原对话框大小
+	CRect  m_rectBtn;
 	
 public:
 	afx_msg void OnBnClickedOk();

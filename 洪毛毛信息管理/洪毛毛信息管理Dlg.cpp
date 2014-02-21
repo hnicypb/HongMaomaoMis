@@ -159,6 +159,8 @@ BOOL C洪毛毛信息管理Dlg::OnInitDialog()
 	m_pointOld.x = m_rect.right - m_rect.left;
 	m_pointOld.y = m_rect.bottom - m_rect.top;
 
+	m_btnAdd.GetClientRect(&m_rectBtn);
+
 	CMarkup xml;
 	if (!fCommIsExistFile(m_strXmlFile))
 	{
@@ -468,15 +470,30 @@ void C洪毛毛信息管理Dlg::OnSize(UINT nType, int cx, int cy)
 {
 	CDialog::OnSize(nType, cx, cy);
 
-	m_listData.MoveWindow(CRect(5,5,cx-5,cy-80));
+	CRect rectWin;
+	this->GetWindowRect(&rectWin);
+	ScreenToClient(&rectWin);
+	CRect rectList = CRect(rectWin.left+10,rectWin.top+35,rectWin.right-10,rectWin.bottom-80);
+	m_listData.MoveWindow(rectList);
 
-	CRect rectTemp;
-	m_listData.GetClientRect(&rectTemp);
+
+	CRect rectBtnNew = CRect(rectList.left,rectList.bottom+5,rectList.left+m_rectBtn.Width(),rectList.bottom+m_rectBtn.Height()+5);
+	m_btnAdd.MoveWindow(rectBtnNew);
 
 	CRect rectBtn;
-	m_btnAdd.GetClientRect(&rectBtn);
+	m_btnDel.GetWindowRect(&rectBtn);
+	ScreenToClient(&rectBtn);
+	m_btnDel.MoveWindow(CRect(rectBtn.left,rectBtnNew.top,rectBtn.right,rectBtnNew.bottom));
 
-	m_btnAdd.MoveWindow(CRect(5,rectTemp.bottom+10,5+rectBtn.Width(),rectTemp.bottom+rectBtn.Height()));
+	m_btnCount.GetWindowRect(&rectBtn);
+	ScreenToClient(&rectBtn);
+	m_btnCount.MoveWindow(CRect(rectBtn.left,rectBtnNew.top,rectBtn.right,rectBtnNew.bottom));
+
+	m_btnExit.GetWindowRect(&rectBtn);
+	ScreenToClient(&rectBtn);
+	m_btnExit.MoveWindow(CRect(rectList.right - m_rectBtn.Width(),rectBtnNew.top,rectList.right,rectBtnNew.bottom));
+
+
 
 	//resize();
 	
