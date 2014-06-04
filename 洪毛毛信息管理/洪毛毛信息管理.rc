@@ -54,8 +54,8 @@ BEGIN
     "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
     "LANGUAGE 4, 2\r\n"
     "#pragma code_page(936)\r\n"
-    "#include ""res\\My.rc2""  // ·? Microsoft Visual C++ ±à?-μ?×ê?′\r\n"
-    "#include ""l.CHS\\afxres.rc""      // ±ê×?×é?t\r\n"
+    "#include ""res\\My.rc2""  // ?¤? Microsoft Visual C++ ?à¨¤?-|ì??á¨o???\r\n"
+    "#include ""l.CHS\\afxres.rc""      // ?à¨o?á??á¨|?t\r\n"
     "#endif\r\n"
     "\0"
 END
@@ -94,11 +94,15 @@ EXSTYLE WS_EX_APPWINDOW
 CAPTION "洪毛毛信息管理"
 FONT 14, "Microsoft Sans Serif", 400, 0, 0x0
 BEGIN
-    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,1,1,316,169
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,1,16,316,154
     DEFPUSHBUTTON   "添加",IDOK,1,171,59,21
     PUSHBUTTON      "退出",IDCANCEL,258,171,59,21
     DEFPUSHBUTTON   "统计",ID_COUNT,123,171,59,21
     DEFPUSHBUTTON   "删除",ID_DEL,62,171,59,21
+    DEFPUSHBUTTON   "查询",ID_QUERY,258,2,59,13
+    CONTROL         "",IDC_DATETIMEPICKER1,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_LONGDATEFORMAT | WS_TABSTOP,3,3,59,11
+    CONTROL         "",IDC_DATETIMEPICKER2,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_LONGDATEFORMAT | WS_TABSTOP,63,3,59,11
+    EDITTEXT        IDC_EDIT1,124,2,133,13,ES_AUTOHSCROLL
 END
 
 IDD_DIALOG_EDIT DIALOGEX 0, 0, 176, 160
@@ -127,14 +131,14 @@ STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Dialog"
 FONT 14, "Microsoft Sans Serif", 400, 0, 0x0
 BEGIN
-    DEFPUSHBUTTON   "查询",IDOK,139,2,67,16
-    PUSHBUTTON      "退出",IDCANCEL,207,2,67,16
-    CONTROL         "",IDC_DATETIMEPICKER1,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_LONGDATEFORMAT | WS_TABSTOP,3,2,64,15
-    CONTROL         "",IDC_DATETIMEPICKER2,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_LONGDATEFORMAT | WS_TABSTOP,71,2,64,15
-    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,3,21,67,157
-    CONTROL         "",IDC_LIST2,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,71,21,67,157
-    CONTROL         "",IDC_LIST3,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,139,21,67,157
-    CONTROL         "",IDC_LIST4,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,207,21,67,157
+    DEFPUSHBUTTON   "查询",IDOK,139,1,67,12
+    PUSHBUTTON      "退出",IDCANCEL,207,1,67,12
+    CONTROL         "",IDC_DATETIMEPICKER1,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_LONGDATEFORMAT | WS_TABSTOP,3,2,67,10
+    CONTROL         "",IDC_DATETIMEPICKER2,"SysDateTimePick32",DTS_RIGHTALIGN | DTS_LONGDATEFORMAT | WS_TABSTOP,71,2,67,10
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,3,14,67,164
+    CONTROL         "",IDC_LIST2,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,71,14,67,164
+    CONTROL         "",IDC_LIST3,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,139,14,67,164
+    CONTROL         "",IDC_LIST4,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,207,14,67,164
 END
 
 
@@ -248,8 +252,8 @@ END
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
 LANGUAGE 4, 2
 #pragma code_page(936)
-#include "res\My.rc2"  // 非 Microsoft Visual C++ 编辑的资源
-#include "l.CHS\afxres.rc"      // 标准组件
+#include "res\My.rc2"  // ·? Microsoft Visual C++ ±à?-μ?×ê?′
+#include "l.CHS\afxres.rc"      // ±ê×?×é?t
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

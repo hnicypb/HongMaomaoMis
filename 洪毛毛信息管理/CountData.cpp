@@ -6,7 +6,8 @@
 #include "CountData.h"
 #include "洪毛毛信息管理Dlg.h"
 
-
+#include <algorithm> 
+using namespace std;
 // CCountData 对话框
 
 IMPLEMENT_DYNAMIC(CCountData, CDialog)
@@ -72,6 +73,21 @@ BOOL CCountData::OnInitDialog()
 	return TRUE;
 }
 
+int cmp(const pair<CString, DWORD>& x, const pair<CString, DWORD>& y)  
+{  
+	return x.second > y.second;  
+}  
+
+void sortMapByValue(map<CString, DWORD>& tMap, vector<pair<CString, DWORD>>& tVector)  
+{  
+	for (map<CString, DWORD>::iterator curr = tMap.begin(); curr != tMap.end(); curr++)  
+	{  
+		tVector.push_back(std::make_pair(curr->first, curr->second));  
+	}  
+
+	sort(tVector.begin(), tVector.end(), cmp);  
+}  
+
 void CCountData::OnBnClickedOk()
 {
 	// TODO: 在此添加控件通知处理程序代码
@@ -116,40 +132,86 @@ void CCountData::OnBnClickedOk()
 
 
 	m_listName.DeleteAllItems();
-	for (map<CString,DWORD>::iterator it = m_mapName.begin();it!=m_mapName.end();it++)
+	vector<pair<CString,DWORD>> tVector;  
+	sortMapByValue(m_mapName,tVector);  
+	for (int i=0;i<tVector.size();i++)
 	{
-		int iRow = m_listName.InsertItem(0,it->first);
+		int iRow = m_listName.InsertItem(0,tVector[i].first);
 		CString strValue;
-		strValue.Format(_T("%d"),it->second);
+		strValue.Format(_T("%d"),tVector[i].second);
 		m_listName.SetItemText(iRow,1,strValue);		
+
 	}
 
 	m_listType.DeleteAllItems();
-	for (map<CString,DWORD>::iterator it = m_mapType.begin();it!=m_mapType.end();it++)
+	tVector.clear();
+	sortMapByValue(m_mapType,tVector);  
+	for (int i=0;i<tVector.size();i++)
 	{
-		int iRow = m_listType.InsertItem(0,it->first);
+		int iRow = m_listType.InsertItem(0,tVector[i].first);
 		CString strValue;
-		strValue.Format(_T("%d"),it->second);
+		strValue.Format(_T("%d"),tVector[i].second);
 		m_listType.SetItemText(iRow,1,strValue);		
+
 	}
 
 	m_listOffice.DeleteAllItems();
-	for (map<CString,DWORD>::iterator it = m_mapOffice.begin();it!=m_mapOffice.end();it++)
+	tVector.clear();
+	sortMapByValue(m_mapOffice,tVector);  
+	for (int i=0;i<tVector.size();i++)
 	{
-		int iRow = m_listOffice.InsertItem(0,it->first);
+		int iRow = m_listOffice.InsertItem(0,tVector[i].first);
 		CString strValue;
-		strValue.Format(_T("%d"),it->second);
+		strValue.Format(_T("%d"),tVector[i].second);
 		m_listOffice.SetItemText(iRow,1,strValue);		
+
 	}
 
 	m_listOffice2.DeleteAllItems();
-	for (map<CString,DWORD>::iterator it = m_mapOffice2.begin();it!=m_mapOffice2.end();it++)
+	tVector.clear();
+	sortMapByValue(m_mapOffice2,tVector);  
+	for (int i=0;i<tVector.size();i++)
 	{
-		int iRow = m_listOffice2.InsertItem(0,it->first);
+		int iRow = m_listOffice2.InsertItem(0,tVector[i].first);
 		CString strValue;
-		strValue.Format(_T("%d"),it->second);
+		strValue.Format(_T("%d"),tVector[i].second);
 		m_listOffice2.SetItemText(iRow,1,strValue);		
+
 	}
+	//for (map<CString,DWORD>::iterator it = m_mapName.begin();it!=m_mapName.end();it++)
+	//{
+	//	int iRow = m_listName.InsertItem(0,it->first);
+	//	CString strValue;
+	//	strValue.Format(_T("%d"),it->second);
+	//	m_listName.SetItemText(iRow,1,strValue);		
+	//}
+
+	//m_listType.DeleteAllItems();
+	//for (map<CString,DWORD>::iterator it = m_mapType.begin();it!=m_mapType.end();it++)
+	//{
+	//	int iRow = m_listType.InsertItem(0,it->first);
+	//	CString strValue;
+	//	strValue.Format(_T("%d"),it->second);
+	//	m_listType.SetItemText(iRow,1,strValue);		
+	//}
+
+	//m_listOffice.DeleteAllItems();
+	//for (map<CString,DWORD>::iterator it = m_mapOffice.begin();it!=m_mapOffice.end();it++)
+	//{
+	//	int iRow = m_listOffice.InsertItem(0,it->first);
+	//	CString strValue;
+	//	strValue.Format(_T("%d"),it->second);
+	//	m_listOffice.SetItemText(iRow,1,strValue);		
+	//}
+
+	//m_listOffice2.DeleteAllItems();
+	//for (map<CString,DWORD>::iterator it = m_mapOffice2.begin();it!=m_mapOffice2.end();it++)
+	//{
+	//	int iRow = m_listOffice2.InsertItem(0,it->first);
+	//	CString strValue;
+	//	strValue.Format(_T("%d"),it->second);
+	//	m_listOffice2.SetItemText(iRow,1,strValue);		
+	//}
 
 }
 

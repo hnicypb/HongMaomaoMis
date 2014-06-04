@@ -5,6 +5,7 @@
 #pragma once
 #include "afxcmn.h"
 #include "afxwin.h"
+#include "afxdtctl.h"
 
 //************************************************************************************
 // 当前应用运行路径
@@ -93,4 +94,8 @@ public:
 	CButton m_btnDel;
 	CButton m_btnCount;
 	CButton m_btnExit;
+	CTime m_timeEnd;
+	CTime m_timeBegin;
+	CEdit m_editQueryText;
+	afx_msg void OnBnClickedQuery();
 };

@@ -92,6 +92,9 @@ void C洪毛毛信息管理Dlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, ID_DEL, m_btnDel);
 	DDX_Control(pDX, ID_COUNT, m_btnCount);
 	DDX_Control(pDX, IDCANCEL, m_btnExit);
+	DDX_DateTimeCtrl(pDX, IDC_DATETIMEPICKER2, m_timeEnd);
+	DDX_DateTimeCtrl(pDX, IDC_DATETIMEPICKER1, m_timeBegin);
+	DDX_Control(pDX, IDC_EDIT1, m_editQueryText);
 }
 
 BEGIN_MESSAGE_MAP(C洪毛毛信息管理Dlg, CDialog)
@@ -107,6 +110,7 @@ BEGIN_MESSAGE_MAP(C洪毛毛信息管理Dlg, CDialog)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST1, &C洪毛毛信息管理Dlg::OnNMDblclkList1)
 	ON_NOTIFY(HDN_ITEMDBLCLICK, 0, &C洪毛毛信息管理Dlg::OnHdnItemdblclickList1)
 	ON_WM_SIZE()
+	ON_BN_CLICKED(ID_QUERY, &C洪毛毛信息管理Dlg::OnBnClickedQuery)
 END_MESSAGE_MAP()
 
 
@@ -143,14 +147,19 @@ BOOL C洪毛毛信息管理Dlg::OnInitDialog()
 
 	// TODO: 在此添加额外的初始化代码
 	m_listData.SetExtendedStyle(LVS_EX_GRIDLINES |LVS_EX_FULLROWSELECT); 
-	m_listData.InsertColumn(0,_T("日期"),LVCFMT_LEFT,170);
-	m_listData.InsertColumn(1,_T("姓名"),LVCFMT_LEFT,100);
-	m_listData.InsertColumn(2,_T("办公室"),LVCFMT_LEFT,100);
-	m_listData.InsertColumn(3,_T("处室"),LVCFMT_LEFT,100);
-	m_listData.InsertColumn(4,_T("电话"),LVCFMT_LEFT,100);
-	m_listData.InsertColumn(5,_T("工作类型"),LVCFMT_LEFT,100);
-	m_listData.InsertColumn(6,_T("工作内容"),LVCFMT_LEFT,500);
+	m_listData.InsertColumn(0,_T(""),LVCFMT_LEFT,50);
+	m_listData.InsertColumn(1,_T("日期"),LVCFMT_LEFT,170);
+	m_listData.InsertColumn(2,_T("姓名"),LVCFMT_LEFT,100);
+	m_listData.InsertColumn(3,_T("办公室"),LVCFMT_LEFT,100);
+	m_listData.InsertColumn(4,_T("处室"),LVCFMT_LEFT,100);
+	m_listData.InsertColumn(5,_T("电话"),LVCFMT_LEFT,100);
+	m_listData.InsertColumn(6,_T("工作类型"),LVCFMT_LEFT,100);
+	m_listData.InsertColumn(7,_T("工作内容"),LVCFMT_LEFT,500);
 	m_listData.SetFocus();
+
+	m_timeEnd = CTime::GetCurrentTime();
+	m_timeBegin = CTime(2013,1,1,0,0,0);
+	UpdateData(FALSE);
 
 	m_strXmlFile = fCommGetAppPath() + _T("\\database.xml");
 	m_strSqliteDbFile = fCommGetAppPath() + _T("\\database.db");
@@ -312,21 +321,106 @@ void C洪毛毛信息管理Dlg::OnBnClickedCancel()
 
 	OnCancel();
 }
+// 将一个字符串作为vector，用bSplitChar分隔，
+vector<CString> fCommStrSplit(CString str, BYTE bSplitChar)
+{
+	str.Replace(_T(" "),_T(""));
+
+	vector<CString> vecList;
+
+	CString strTemp = str; //此赋值不能少
+	CString strText = _T("");
+	int nIndex = 0; //  
+	while( 1 )  
+	{  
+		nIndex = strTemp.Find( bSplitChar );  
+		if( nIndex >= 0 )  
+		{  
+			strText = strTemp.Left( nIndex );
+			vecList.push_back(strText);
+			strTemp = strTemp.Right( strTemp.GetLength() - nIndex - 1 );  		
+		}  
+		else 
+		{
+			strText = strTemp;
+			vecList.push_back(strText);
+			break;  
+		}
+	}  
+
+	return vecList ;
+}
 
 void C洪毛毛信息管理Dlg::fRefreshData()
 {
 	m_listData.DeleteAllItems();
+
+	CString strTimeBegin;
+	CString strTimeEnd;
+	CString strQueryText;
+	strTimeBegin.Format(_T("%04d%02d%02d %02d:%02d:%02d"),m_timeBegin.GetYear(),m_timeBegin.GetMonth(),m_timeBegin.GetDay(),m_timeBegin.GetHour(),m_timeBegin.GetMinute(),m_timeBegin.GetSecond());
+	strTimeEnd.Format(_T("%04d%02d%02d %02d:%02d:%02d"),m_timeEnd.GetYear(),m_timeEnd.GetMonth(),m_timeEnd.GetDay(),m_timeEnd.GetHour(),m_timeEnd.GetMinute(),m_timeEnd.GetSecond());
+	m_editQueryText.GetWindowText(strQueryText);
+	strQueryText = strQueryText.TrimLeft(_T(" ")).TrimRight(_T(" "));
+
+	vector<CString> vecQueryText = fCommStrSplit(strQueryText,';');
+    if (vecQueryText.size() == 0)
+		vecQueryText = fCommStrSplit(strQueryText,'；');
+
+
+	CString strIndex;
+	BOOL bFind = TRUE;
 	for (vector<tagDataDetail>::iterator it = m_vecData.begin();it!=m_vecData.end();it++)
 	{
-		if (it->iStatus != DATA_DEL)
+		if (it->strDate >= strTimeBegin && it->strDate <= strTimeEnd && it->iStatus != DATA_DEL)
 		{
-			int iRow = m_listData.InsertItem(0,it->strDate);
-			m_listData.SetItemText(iRow,1,it->strName);
-			m_listData.SetItemText(iRow,2,it->strOffice);
-			m_listData.SetItemText(iRow,3,it->strOffice2);
-			m_listData.SetItemText(iRow,4,it->strTel);
-			m_listData.SetItemText(iRow,5,it->strType);
-			m_listData.SetItemText(iRow,6,it->strDetail);
+			if (vecQueryText.size()>0)
+			{
+				bFind = TRUE;
+				for (vector<CString>::iterator it_query=vecQueryText.begin();it_query!=vecQueryText.end();it_query++)
+				{
+					strQueryText = *it_query;
+					if (it->strName.Find(strQueryText,0)>=0 ||
+						it->strOffice.Find(strQueryText,0)>=0 ||
+						it->strOffice2.Find(strQueryText,0)>=0 ||
+						it->strTel.Find(strQueryText,0)>=0 ||
+						it->strType.Find(strQueryText,0)>=0 ||
+						it->strDetail.Find(strQueryText,0)>=0)
+					{
+						
+					}
+					else
+					{
+						bFind = FALSE;
+						break;
+					}
+				}
+
+				if (bFind)
+				{
+					strIndex.Format(_T("%d"),m_listData.GetItemCount()+1);
+					int iRow = m_listData.InsertItem(0,strIndex);
+					m_listData.SetItemText(iRow,1,it->strDate);
+					m_listData.SetItemText(iRow,2,it->strName);
+					m_listData.SetItemText(iRow,3,it->strOffice);
+					m_listData.SetItemText(iRow,4,it->strOffice2);
+					m_listData.SetItemText(iRow,5,it->strTel);
+					m_listData.SetItemText(iRow,6,it->strType);
+					m_listData.SetItemText(iRow,7,it->strDetail);
+				}
+			}
+			else
+			{
+				strIndex.Format(_T("%d"),m_listData.GetItemCount()+1);
+				int iRow = m_listData.InsertItem(0,strIndex);
+				m_listData.SetItemText(iRow,1,it->strDate);
+				m_listData.SetItemText(iRow,2,it->strName);
+				m_listData.SetItemText(iRow,3,it->strOffice);
+				m_listData.SetItemText(iRow,4,it->strOffice2);
+				m_listData.SetItemText(iRow,5,it->strTel);
+				m_listData.SetItemText(iRow,6,it->strType);
+				m_listData.SetItemText(iRow,7,it->strDetail);
+			}
 		}
 	}
 }
@@ -473,7 +567,7 @@ void C洪毛毛信息管理Dlg::OnSize(UINT nType, int cx, int cy)
 	CRect rectWin;
 	this->GetWindowRect(&rectWin);
 	ScreenToClient(&rectWin);
-	CRect rectList = CRect(rectWin.left+10,rectWin.top+35,rectWin.right-10,rectWin.bottom-80);
+	CRect rectList = CRect(rectWin.left+10,rectWin.top+80,rectWin.right-10,rectWin.bottom-80);
 	m_listData.MoveWindow(rectList);
 
 
@@ -532,4 +626,10 @@ void C洪毛毛信息管理Dlg::resize()
 	}
 	m_pointOld=Newp;
 
+}
+
+void C洪毛毛信息管理Dlg::OnBnClickedQuery()
+{	
+	UpdateData();
+	fRefreshData();
 }
