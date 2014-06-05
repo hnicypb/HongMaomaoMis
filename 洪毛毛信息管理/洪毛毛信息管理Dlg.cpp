@@ -232,7 +232,9 @@ BOOL C洪毛毛信息管理Dlg::OnInitDialog()
 		fRefreshData();
 	}
 
-
+	m_pDlgCount = new CCountData();
+	m_pDlgCount->Create(IDD_DIALOG_COUNT);
+	m_pDlgCount->ShowWindow(SW_HIDE);
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }
@@ -324,8 +326,6 @@ void C洪毛毛信息管理Dlg::OnBnClickedCancel()
 // 将一个字符串作为vector，用bSplitChar分隔，
 vector<CString> fCommStrSplit(CString str, BYTE bSplitChar)
 {
-	str.Replace(_T(" "),_T(""));
-
 	vector<CString> vecList;
 
 	CString strTemp = str; //此赋值不能少
@@ -342,8 +342,8 @@ vector<CString> fCommStrSplit(CString str, BYTE bSplitChar)
 		}  
 		else 
 		{
-			strText = strTemp;
-			vecList.push_back(strText);
+			//strText = strTemp;
+			//vecList.push_back(strText);
 			break;  
 		}
 	}  
@@ -364,9 +364,6 @@ void C洪毛毛信息管理Dlg::fRefreshData()
 	strQueryText = strQueryText.TrimLeft(_T(" ")).TrimRight(_T(" "));
 
 	vector<CString> vecQueryText = fCommStrSplit(strQueryText,';');
-    if (vecQueryText.size() == 0)
-		vecQueryText = fCommStrSplit(strQueryText,'；');
-
 
 	CString strIndex;
 	BOOL bFind = TRUE;
@@ -376,7 +373,6 @@ void C洪毛毛信息管理Dlg::fRefreshData()
 		{
 			if (vecQueryText.size()>0)
 			{
-				bFind = TRUE;
 				for (vector<CString>::iterator it_query=vecQueryText.begin();it_query!=vecQueryText.end();it_query++)
 				{
 					strQueryText = *it_query;
@@ -384,29 +380,21 @@ void C洪毛毛信息管理Dlg::fRefreshData()
 						it->strOffice.Find(strQueryText,0)>=0 ||
 						it->strOffice2.Find(strQueryText,0)>=0 ||
 						it->strTel.Find(strQueryText,0)>=0 ||
-						it->strType.Find(strQueryText,0)>=0 ||
-						it->strDetail.Find(strQueryText,0)>=0)
+						it->strType.Find(strQueryText,0)>=0 )
 					{
+						strIndex.Format(_T("%d"),m_listData.GetItemCount()+1);
+						int iRow = m_listData.InsertItem(0,strIndex);
+						m_listData.SetItemText(iRow,1,it->strDate);
+						m_listData.SetItemText(iRow,2,it->strName);
+						m_listData.SetItemText(iRow,3,it->strOffice);
+						m_listData.SetItemText(iRow,4,it->strOffice2);
+						m_listData.SetItemText(iRow,5,it->strTel);
+						m_listData.SetItemText(iRow,6,it->strType);
+						m_listData.SetItemText(iRow,7,it->strDetail);
+
+						break;
 						
 					}
-					else
-					{
-						bFind = FALSE;
-						break;
-					}
-				}
-
-				if (bFind)
-				{
-					strIndex.Format(_T("%d"),m_listData.GetItemCount()+1);
-					int iRow = m_listData.InsertItem(0,strIndex);
-					m_listData.SetItemText(iRow,1,it->strDate);
-					m_listData.SetItemText(iRow,2,it->strName);
-					m_listData.SetItemText(iRow,3,it->strOffice);
-					m_listData.SetItemText(iRow,4,it->strOffice2);
-					m_listData.SetItemText(iRow,5,it->strTel);
-					m_listData.SetItemText(iRow,6,it->strType);
-					m_listData.SetItemText(iRow,7,it->strDetail);
 				}
 			}
 			else
@@ -495,14 +483,16 @@ void C洪毛毛信息管理Dlg::OnLvnItemchangedList1(NMHDR *pNMHDR, LRESULT *pResult)
 void C洪毛毛信息管理Dlg::OnBnClickedCount()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	CCountData dlgCount;
-	dlgCount.DoModal();
+	//CCountData dlgCount;
+	//dlgCount.DoModal();
+
+	m_pDlgCount->ShowWindow(SW_SHOW);
 }
 
 void C洪毛毛信息管理Dlg::OnBnClickedDel()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	CString strDate = m_listData.GetItemText(m_listData.GetSelectionMark(),0);
+	CString strDate = m_listData.GetItemText(m_listData.GetSelectionMark(),1);
 
 	for (vector<tagDataDetail>::iterator it = m_vecData.begin();it!=m_vecData.end();it++)
 	{
@@ -523,14 +513,14 @@ void C洪毛毛信息管理Dlg::OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult)
 	*pResult = 0;
 
 	int iIndex = m_listData.GetSelectionMark();
-	CString strDate = m_listData.GetItemText(iIndex,0);
+	CString strDate = m_listData.GetItemText(iIndex,1);
 	CEditData dlgEdit;
-	dlgEdit.m_strName = m_listData.GetItemText(iIndex,1);
-	dlgEdit.m_strTel = m_listData.GetItemText(iIndex,2);
-	dlgEdit.m_strOffice = m_listData.GetItemText(iIndex,3);
-	dlgEdit.m_strOffice2 = m_listData.GetItemText(iIndex,4);
-	dlgEdit.m_strType = m_listData.GetItemText(iIndex,5);
-	dlgEdit.m_strDetail = m_listData.GetItemText(iIndex,6);
+	dlgEdit.m_strName = m_listData.GetItemText(iIndex,2);
+	dlgEdit.m_strTel = m_listData.GetItemText(iIndex,3);
+	dlgEdit.m_strOffice = m_listData.GetItemText(iIndex,4);
+	dlgEdit.m_strOffice2 = m_listData.GetItemText(iIndex,5);
+	dlgEdit.m_strType = m_listData.GetItemText(iIndex,6);
+	dlgEdit.m_strDetail = m_listData.GetItemText(iIndex,7);
 
 	if(dlgEdit.DoModal() == IDOK)
 	{
@@ -569,7 +559,6 @@ void C洪毛毛信息管理Dlg::OnSize(UINT nType, int cx, int cy)
 	ScreenToClient(&rectWin);
 	CRect rectList = CRect(rectWin.left+10,rectWin.top+80,rectWin.right-10,rectWin.bottom-80);
 	m_listData.MoveWindow(rectList);
-
 
 	CRect rectBtnNew = CRect(rectList.left,rectList.bottom+5,rectList.left+m_rectBtn.Width(),rectList.bottom+m_rectBtn.Height()+5);
 	m_btnAdd.MoveWindow(rectBtnNew);
@@ -632,4 +621,31 @@ void C洪毛毛信息管理Dlg::OnBnClickedQuery()
 {	
 	UpdateData();
 	fRefreshData();
+}
+
+
+void C洪毛毛信息管理Dlg::fAddQueryText(CString strQueryText)
+{
+	CString strCurrQuery;
+	m_editQueryText.GetWindowText(strCurrQuery);
+	if (strQueryText!=_T(""))
+	{
+		if (strCurrQuery.Find(strQueryText)>=0)
+			strCurrQuery.Replace(strQueryText+_T(";"),_T(""));
+		else
+			strCurrQuery = strCurrQuery + strQueryText + _T(";");
+
+		m_editQueryText.SetWindowText(strCurrQuery );
+	}
+
+	OnBnClickedQuery();
+}
+
+void C洪毛毛信息管理Dlg::fSetQueryTime(CTime timeBegin,CTime timeEnd)
+{
+	m_timeEnd = timeEnd;
+	m_timeBegin = timeBegin;
+	UpdateData(FALSE);
+
+	OnBnClickedQuery();
 }

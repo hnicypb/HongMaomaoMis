@@ -6,6 +6,7 @@
 #include "afxcmn.h"
 #include "afxwin.h"
 #include "afxdtctl.h"
+#include "CountData.h"
 
 //************************************************************************************
 // 当前应用运行路径
@@ -78,6 +79,8 @@ public:
 	afx_msg void OnBnClickedCancel();
 	CListCtrl m_listData;
 
+	CCountData * m_pDlgCount;
+
 	vector<tagDataDetail> m_vecData;
 	vector<CString> m_vecDataType;
 
@@ -98,4 +101,7 @@ public:
 	CTime m_timeBegin;
 	CEdit m_editQueryText;
 	afx_msg void OnBnClickedQuery();
+
+	void fAddQueryText(CString strQueryText);
+	void fSetQueryTime(CTime timeBegin,CTime timeEnd);
 };

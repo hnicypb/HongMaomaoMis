@@ -39,4 +39,8 @@ public:
 	map<CString,DWORD> m_mapType;
 	map<CString,DWORD> m_mapOffice;
 	map<CString,DWORD> m_mapOffice2;
+	afx_msg void OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnNMDblclkList2(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnNMDblclkList3(NMHDR *pNMHDR, LRESULT *pResult);
+	afx_msg void OnNMDblclkList4(NMHDR *pNMHDR, LRESULT *pResult);
 };

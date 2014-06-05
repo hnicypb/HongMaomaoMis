@@ -40,6 +40,10 @@ void CCountData::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CCountData, CDialog)
 	ON_BN_CLICKED(IDOK, &CCountData::OnBnClickedOk)
 	ON_BN_CLICKED(IDCANCEL, &CCountData::OnBnClickedCancel)
+	ON_NOTIFY(NM_DBLCLK, IDC_LIST1,&CCountData::OnNMDblclkList1)
+	ON_NOTIFY(NM_DBLCLK, IDC_LIST2,&CCountData::OnNMDblclkList2)
+	ON_NOTIFY(NM_DBLCLK, IDC_LIST3,&CCountData::OnNMDblclkList3)
+	ON_NOTIFY(NM_DBLCLK, IDC_LIST4,&CCountData::OnNMDblclkList4)
 END_MESSAGE_MAP()
 
 
@@ -70,6 +74,8 @@ BOOL CCountData::OnInitDialog()
 	m_timeBegin = CTime(m_timeEnd.GetYear(),m_timeEnd.GetMonth(),1,0,0,0);
 	UpdateData(FALSE);
 
+	this->CenterWindow();
+
 	return TRUE;
 }
 
@@ -97,7 +103,9 @@ void CCountData::OnBnClickedOk()
 	CString strTimeEnd;
 	strTimeBegin.Format(_T("%04d%02d%02d %02d:%02d:%02d"),m_timeBegin.GetYear(),m_timeBegin.GetMonth(),m_timeBegin.GetDay(),m_timeBegin.GetHour(),m_timeBegin.GetMinute(),m_timeBegin.GetSecond());
 	strTimeEnd.Format(_T("%04d%02d%02d %02d:%02d:%02d"),m_timeEnd.GetYear(),m_timeEnd.GetMonth(),m_timeEnd.GetDay(),m_timeEnd.GetHour(),m_timeEnd.GetMinute(),m_timeEnd.GetSecond());
+	
 	C洪毛毛信息管理Dlg * pDlg = (C洪毛毛信息管理Dlg *)theApp.m_pMainWnd;
+	pDlg->fSetQueryTime(m_timeBegin,m_timeEnd);
 
 	m_mapName.clear();
 	m_mapType.clear();
@@ -218,10 +226,67 @@ void CCountData::OnBnClickedOk()
 void CCountData::OnBnClickedCancel()
 {
 	// TODO: 在此添加控件通知处理程序代码
-	OnCancel();
+	this->ShowWindow(SW_HIDE);
 }
 
 
 void CCountData::fRefresh()
 {
+}
+
+void CCountData::OnNMDblclkList1(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	// TODO: 在此添加控件通知处理程序代码
+	*pResult = 0;
+	C洪毛毛信息管理Dlg * pDlg = (C洪毛毛信息管理Dlg *)theApp.m_pMainWnd;
+
+	NM_LISTVIEW*   pNMListView = (NM_LISTVIEW*)pNMHDR;   
+	int nItem = pNMListView -> iItem;   
+	int nSubItem = pNMListView ->iSubItem; 
+
+	pDlg->fAddQueryText(m_listName.GetItemText(nItem,0));
+	
+}
+void CCountData::OnNMDblclkList2(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	// TODO: 在此添加控件通知处理程序代码
+	*pResult = 0;
+	C洪毛毛信息管理Dlg * pDlg = (C洪毛毛信息管理Dlg *)theApp.m_pMainWnd;
+
+	NM_LISTVIEW*   pNMListView = (NM_LISTVIEW*)pNMHDR;   
+	int nItem = pNMListView -> iItem;   
+	int nSubItem = pNMListView ->iSubItem; 
+
+	pDlg->fAddQueryText(m_listType.GetItemText(nItem,0));
+
+}
+void CCountData::OnNMDblclkList3(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	// TODO: 在此添加控件通知处理程序代码
+	*pResult = 0;
+	C洪毛毛信息管理Dlg * pDlg = (C洪毛毛信息管理Dlg *)theApp.m_pMainWnd;
+
+	NM_LISTVIEW*   pNMListView = (NM_LISTVIEW*)pNMHDR;   
+	int nItem = pNMListView -> iItem;   
+	int nSubItem = pNMListView ->iSubItem; 
+
+	pDlg->fAddQueryText(m_listOffice2.GetItemText(nItem,0));
+
+}
+void CCountData::OnNMDblclkList4(NMHDR *pNMHDR, LRESULT *pResult)
+{
+	LPNMITEMACTIVATE pNMItemActivate = reinterpret_cast<LPNMITEMACTIVATE>(pNMHDR);
+	// TODO: 在此添加控件通知处理程序代码
+	*pResult = 0;
+	C洪毛毛信息管理Dlg * pDlg = (C洪毛毛信息管理Dlg *)theApp.m_pMainWnd;
+
+	NM_LISTVIEW*   pNMListView = (NM_LISTVIEW*)pNMHDR;   
+	int nItem = pNMListView -> iItem;   
+	int nSubItem = pNMListView ->iSubItem; 
+
+	pDlg->fAddQueryText(m_listOffice.GetItemText(nItem,0));
+
 }

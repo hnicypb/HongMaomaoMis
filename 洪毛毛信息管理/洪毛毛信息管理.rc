@@ -54,8 +54,8 @@ BEGIN
     "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
     "LANGUAGE 4, 2\r\n"
     "#pragma code_page(936)\r\n"
-    "#include ""res\\My.rc2""  // ?¤? Microsoft Visual C++ ?à¨¤?-|ì??á¨o???\r\n"
-    "#include ""l.CHS\\afxres.rc""      // ?à¨o?á??á¨|?t\r\n"
+    "#include ""res\\My.rc2""  // ??è? Microsoft Visual C++ ?¨¤?§?è?-|¨???¨￠?§o???\r\n"
+    "#include ""l.CHS\\afxres.rc""      // ?¨¤?§o?¨￠??¨￠?§|?t\r\n"
     "#endif\r\n"
     "\0"
 END
@@ -114,7 +114,7 @@ BEGIN
     EDITTEXT        IDC_EDIT_TEL,120,3,53,14,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT_OFFICE,38,19,53,12,ES_AUTOHSCROLL
     EDITTEXT        IDC_EDIT_OFFICE2,120,19,53,14,ES_AUTOHSCROLL
-    COMBOBOX        IDC_COMBO_TYPE,38,34,53,30,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    COMBOBOX        IDC_COMBO_TYPE,38,34,53,105,CBS_DROPDOWNLIST | CBS_SORT | WS_VSCROLL | WS_TABSTOP
     EDITTEXT        IDC_EDIT_DETAIL,38,47,134,94,ES_MULTILINE | ES_WANTRETURN | WS_VSCROLL
     DEFPUSHBUTTON   "确定",IDOK,38,143,55,14
     PUSHBUTTON      "取消",IDCANCEL,118,143,55,14
@@ -127,7 +127,7 @@ BEGIN
 END
 
 IDD_DIALOG_COUNT DIALOGEX 0, 0, 277, 181
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+STYLE DS_SETFONT | DS_MODALFRAME | WS_CAPTION | WS_SYSMENU
 CAPTION "Dialog"
 FONT 14, "Microsoft Sans Serif", 400, 0, 0x0
 BEGIN
@@ -252,8 +252,8 @@ END
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
 LANGUAGE 4, 2
 #pragma code_page(936)
-#include "res\My.rc2"  // ·? Microsoft Visual C++ ±à?-μ?×ê?′
-#include "l.CHS\afxres.rc"      // ±ê×?×é?t
+#include "res\My.rc2"  // ?¤? Microsoft Visual C++ ?à¨¤?-|ì??á¨o???
+#include "l.CHS\afxres.rc"      // ?à¨o?á??á¨|?t
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
