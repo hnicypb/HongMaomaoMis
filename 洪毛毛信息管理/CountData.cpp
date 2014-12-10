@@ -44,6 +44,7 @@ BEGIN_MESSAGE_MAP(CCountData, CDialog)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST2,&CCountData::OnNMDblclkList2)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST3,&CCountData::OnNMDblclkList3)
 	ON_NOTIFY(NM_DBLCLK, IDC_LIST4,&CCountData::OnNMDblclkList4)
+	ON_WM_SIZE()
 END_MESSAGE_MAP()
 
 
@@ -289,4 +290,35 @@ void CCountData::OnNMDblclkList4(NMHDR *pNMHDR, LRESULT *pResult)
 
 	pDlg->fAddQueryText(m_listOffice.GetItemText(nItem,0));
 
+}
+
+void CCountData::OnSize(UINT nType, int cx, int cy)
+{
+	CDialog::OnSize(nType, cx, cy);
+
+	CRect rectWin;
+	this->GetWindowRect(&rectWin);
+	ScreenToClient(&rectWin);
+
+	CRect rectNew = CRect(rectWin.left+10,rectWin.top+80,rectWin.right-10,rectWin.bottom-10);
+
+	CRect rectList;
+	rectList.top = rectNew.top;
+	rectList.bottom = rectNew.bottom;
+
+	rectList.left = rectNew.left;
+	rectList.right = rectNew.left + rectNew.Width()/4;
+	m_listName.MoveWindow(rectList);
+
+	rectList.left = rectNew.left+ rectNew.Width()/4 + 10;
+	rectList.right = rectNew.left + (rectNew.Width()/4)*2;
+	m_listType.MoveWindow(rectList);
+
+	rectList.left = rectNew.left+ rectNew.Width()/4*2 + 10;
+	rectList.right = rectNew.left + (rectNew.Width()/4)*3;
+	m_listOffice2.MoveWindow(rectList);
+
+	rectList.left = rectNew.left+ rectNew.Width()/4*3 + 10;
+	rectList.right = rectNew.left + (rectNew.Width()/4)*4;
+	m_listOffice.MoveWindow(rectList);
 }

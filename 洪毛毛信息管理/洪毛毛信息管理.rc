@@ -54,8 +54,8 @@ BEGIN
     "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)\r\n"
     "LANGUAGE 4, 2\r\n"
     "#pragma code_page(936)\r\n"
-    "#include ""res\\My.rc2""  // ??¨¨? Microsoft Visual C++ ?¡§¡è?¡ì?¨¨?-|¡§???¡§¡é?¡ìo???\r\n"
-    "#include ""l.CHS\\afxres.rc""      // ?¡§¡è?¡ìo?¡§¡é??¡§¡é?¡ì|?t\r\n"
+    "#include ""res\\My.rc2""  // ??¡§¡§? Microsoft Visual C++ ??¡ì?¨¨??¨¬?¡§¡§?-|?¡ì????¡ì?¨¦??¨¬o???\r\n"
+    "#include ""l.CHS\\afxres.rc""      // ??¡ì?¨¨??¨¬o??¡ì?¨¦???¡ì?¨¦??¨¬|?t\r\n"
     "#endif\r\n"
     "\0"
 END
@@ -127,7 +127,7 @@ BEGIN
 END
 
 IDD_DIALOG_COUNT DIALOGEX 0, 0, 277, 181
-STYLE DS_SETFONT | DS_MODALFRAME | WS_CAPTION | WS_SYSMENU
+STYLE DS_SETFONT | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME
 CAPTION "Dialog"
 FONT 14, "Microsoft Sans Serif", 400, 0, 0x0
 BEGIN
@@ -252,8 +252,8 @@ END
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_CHS)
 LANGUAGE 4, 2
 #pragma code_page(936)
-#include "res\My.rc2"  // ?¡è? Microsoft Visual C++ ?¨¤¡§¡è?-|¨¬??¨¢¡§o???
-#include "l.CHS\afxres.rc"      // ?¨¤¡§o?¨¢??¨¢¡§|?t
+#include "res\My.rc2"  // ??¨¨? Microsoft Visual C++ ?¡§¡è?¡ì?¨¨?-|¡§???¡§¡é?¡ìo???
+#include "l.CHS\afxres.rc"      // ?¡§¡è?¡ìo?¡§¡é??¡§¡é?¡ì|?t
 #endif
 
 /////////////////////////////////////////////////////////////////////////////

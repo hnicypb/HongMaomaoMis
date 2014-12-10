@@ -157,8 +157,9 @@ BOOL C洪毛毛信息管理Dlg::OnInitDialog()
 	m_listData.InsertColumn(7,_T("工作内容"),LVCFMT_LEFT,500);
 	m_listData.SetFocus();
 
-	m_timeEnd = CTime::GetCurrentTime();
-	m_timeBegin = CTime(2013,1,1,0,0,0);
+	CTime timeTemp = CTime::GetCurrentTime();
+	m_timeEnd = CTime(timeTemp.GetYear(),timeTemp.GetMonth(),timeTemp.GetDay(),23,59,59);
+	m_timeBegin = CTime(2014,1,1,0,0,0);
 	UpdateData(FALSE);
 
 	m_strXmlFile = fCommGetAppPath() + _T("\\database.xml");
